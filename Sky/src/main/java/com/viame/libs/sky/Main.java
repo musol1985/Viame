@@ -17,11 +17,13 @@ public class Main {
 		System.out.println(destino.PlaceId);
 		
 		Vuelos vuelos=sHttp.getVuelo(origen, destino, "2017-03-04");
-		for(Carrier c:vuelos.Carriers){
+
+		
+		for(Carrier c:vuelos.getCarriers()){
 			System.out.println(c.print());
 		}
 		
-		for(Quote q:vuelos.Quotes){
+		for(Quote q:vuelos.getQuotes()){
 			System.out.println(q.print());
 		}
 	}

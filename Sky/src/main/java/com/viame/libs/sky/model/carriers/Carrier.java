@@ -1,5 +1,8 @@
 package com.viame.libs.sky.model.carriers;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Carrier {
 	public String CarrierId;
 	public String Name;	
