@@ -4,11 +4,11 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.viame.libs.sky.model.IModelId;
 
 
-public class Quote {
+public class Quote implements IModelId{
 	public String QuoteId;
 	public float MinPrice;
 	public boolean Direct;
@@ -19,7 +19,7 @@ public class Quote {
 	
 	
 	public String print(){
-		return "id: "+QuoteId+", precio: "+MinPrice+", fecha: "+QuoteDateTime+" crr:"+vuelo.getCarriers().get(0).CarrierId; 
+		return "id: "+QuoteId+", precio: "+MinPrice+", vuelo: "+vuelo.print(); 
 	}
 
 
@@ -32,6 +32,11 @@ public class Quote {
 	@JsonGetter("OutboundLeg")
 	public Vuelo getVuelo() {
 		return vuelo;
+	}
+
+
+	public String getId() {
+		return QuoteId;
 	}
 	
 	

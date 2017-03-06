@@ -1,22 +1,23 @@
 package com.viame.libs.sky;
 
+import java.io.IOException;
+
+import org.apache.commons.io.IOUtils;
+
 import com.viame.libs.sky.core.SkyHttp;
-import com.viame.libs.sky.model.Vuelos;
-import com.viame.libs.sky.model.carriers.Carrier;
-import com.viame.libs.sky.model.location.Place;
-import com.viame.libs.sky.model.quotes.Quote;
+import com.viame.libs.sky.model.Busqueda;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception{
 		SkyHttp sHttp=new SkyHttp();
-		Place origen=sHttp.getLocation("barce").Places.get(0);
+		/*Place origen=sHttp.getLocation("barce").Places.get(0);
 		Place destino=sHttp.getLocation("madrid").Places.get(0);
 		
 		System.out.println(origen.PlaceId);
 		System.out.println(destino.PlaceId);
 		
-		Vuelos vuelos=sHttp.getVuelo(origen, destino, "2017-03-04");
+		Vuelos vuelos=sHttp.getVueloMasBarato(origen, destino, "2017-03-08");
 
 		
 		for(Carrier c:vuelos.getCarriers()){
@@ -25,7 +26,27 @@ public class Main {
 		
 		for(Quote q:vuelos.getQuotes()){
 			System.out.println(q.print());
-		}
+		}*/
+		
+		//sHttp.getVuelo("BCN-sky",  "MAD-sky", "2017-03-09", 1, true);
+		
+		
+		Busqueda b=SkyHttp.convertStringToObject(getFileWithUtil("test.json"), Busqueda.class);
+		System.out.println(b);
 	}
 
+	
+	  private static String getFileWithUtil(String fileName) {
+
+			String result = "";
+
+			ClassLoader classLoader = Main.class.getClassLoader();
+			try {
+			    result = IOUtils.toString(classLoader.getResourceAsStream(fileName));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return result;
+		  }
 }
