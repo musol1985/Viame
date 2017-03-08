@@ -1,0 +1,69 @@
+
+<div class="modal-header">
+	<h4 class="modal-title">Centro</h4>
+</div>
+<div class="modal-body">
+
+	<form name="myForm" class="form-horizontal" novalidate>
+		
+		<div class="row">
+			<ui-input form="myForm" label="Nombre*" nombre="nombre" placeholder="Introduce el nombre del centro"
+				model="modalContent.data.centro.nombre" obligatorio  min="3"/>
+		</div>
+		
+		<div class="row">
+			<ui-input form="myForm" label="Correo Admin*" nombre="correo" placeholder="Introduce el correo del administrador"
+				model="modalContent.data.centro.correoAdmin" obligatorio  tipo="email"/>
+		</div>
+		
+		<div class="row">
+			<ui-input form="myForm" label="Nombre Admin*" nombre="nombreAdmin" placeholder="Introduce el nombre del administrador"
+				 model="modalContent.data.centro.nombreAdmin" obligatorio  min="3"/>
+		</div>
+
+		<div class="row">
+			<div class="form-group col-md-12"
+				ng-class="{ 'has-error' : myForm.correo.$invalid && !myForm.correo.$pristine, 'has-success': myForm.correo.$invalid && !myForm.correo.$pristine}">
+				<label class="col-md-3 control-lable" for="ubicacion">Ubicación*</label>
+				<div class="col-md-7">
+					<input type="text" name="ubicacion" ng-model="asyncSelected"
+						placeholder="Direcci�n" typeahead-wait-ms="150"
+						typeahead-on-select="modalContent.setUbicacion($item, $model)"
+						uib-typeahead="address.formatted_address for address in modalContent.getUbicacion($viewValue)"
+						typeahead-loading="Cargando" class="form-control">
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-12">
+				<label class="col-md-3 control-lable" for="color">Color</label>
+				<div class="col-md-7">
+					<uicolores model="modalContent.data.color" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<label class="col-md-2 control-lable" for="tipo">Tipo*</label>
+			<div class="col-md-7">
+				<select chosen class="w-100"
+					ng-model="modalContent.data.centro.tipo"
+					data-placeholder="Tipoj de centro" name="tipo">
+					<option value="0">Belleza y cuidado personal</option>
+					<option value="1">Sanidad</option>
+				</select>
+			</div>
+		</div>
+
+
+
+
+		<div class="modal-footer">
+			<button class="btn bgm-blue btn-lg" ng-click="modalContent.guardar()"
+				ng-disabled="myForm.$invalid">Guardar</button>
+			<button class="btn bgm-red btn-lg" ng-click="cancel()">Cancelar</button>
+		</div>
+	</form>
+
+</div>
+

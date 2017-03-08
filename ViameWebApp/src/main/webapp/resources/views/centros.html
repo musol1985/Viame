@@ -1,0 +1,104 @@
+<div class="container" data-ng-controller="tablaCentros as centrosCtr">
+
+	<ui-popup template="resources/template/modals/centro.html" popup="popup" on-new="onNuevo(data)" on-post-save="onPostGuardar(data, accion, modificando)"/>
+	<div class="card m-b-0 lista" id="messages-main">
+
+		<div class="ms-menu lista"
+			data-ng-class="{ 'toggled': mactrl.lvMenuStat }">
+			<div class="card-header ch-alt clearfix">
+				<h2>
+					Centros<small>Lista de centros</small>
+				</h2>
+
+
+				<ul class="lv-actions actions">
+					<li><a href="" ng-click="refrescar()"> <i
+							class="zmdi zmdi-refresh"></i>
+					</a></li>
+				</ul>
+
+				<button class="btn bgm-red btn-float waves-effect"
+					ng-click="nuevo()">
+					<i class="zmdi zmdi-plus"></i>
+				</button>
+			</div>
+
+			<uilista datos="datos" on-seleccionar="seleccionarCentro(item)">
+				<listaitem uilistaitem color="$parent.item.color" titulo="$parent.item.nombre" descripcion="$parent.item.correoAdmin" sub-descripcion="$parent.item.ubicacion.poblacion" />
+
+				<ul class="lv-actions actions">
+					<li>
+						<a href="" ng-click="eliminar($parent.item)"> 
+							<i class="zmdi zmdi-delete"></i>
+						</a>
+					</li>
+				</ul>
+			</uilista>
+
+		</div>
+
+		<div class="ms-body" data-ng-controller="usuarios as usuariosCtr">
+			<div class="listview lv-message">
+				<div class="card-header ch-alt clearfix">
+					<div id="ms-menu-trigger"
+						data-ng-class="{ 'open': mactrl.lvMenuStat }"
+						data-ng-click="mactrl.lvMenuStat = (mactrl.lvMenuStat===true ? false : true )">
+						<div class="line-wrap">
+							<div class="line top"></div>
+							<div class="line center"></div>
+							<div class="line bottom"></div>
+						</div>
+					</div>
+
+					<div class="lvh-label">Usuarios</div>
+
+					<ul class="lv-actions actions">
+						<li><a href="" ng-click="refrescar(usuariosCtr)"> <i
+								class="zmdi zmdi-refresh"></i>
+						</a></li>
+					</ul>
+
+				</div>
+
+				<div ng-show="centro.sId=='-1'" class="lv-body"">
+					<div class="centro m-t-30">
+						<h1>Selecciona un centro</h1>
+						<div>Selecciona un centro de la izquierda para ver sus
+							usuarios</div>
+					</div>
+
+				</div>
+
+				<div ng-show="centro.sId!='-1'" class="table-responsive">
+					<table ng-table="tabla"
+						ng-table-get-datos="getDatosByCentro(params, onComplete)"
+						ng-table-model="rows" ng-Table-Ref="usuariosCtr" pagsize="10"
+						class="table table-striped table-vmiddle">
+						<tr ng-repeat="w in rows">
+							<td data-title="'Nombre'">{{ w.nombre }}</td>
+							<td data-title="'Correo'">{{ w.correo }}</td>
+							<td data-title="'Admin'">
+								<div class="checkbox pull-left">
+									<label> <input type="checkbox"
+										data-ng-checked="w.admin" value="" ng-disabled="true">
+										<i class="input-helper"></i>
+									</label>
+								</div>
+							</td>
+							<td data-title="'Pendiente'">
+								<div class="checkbox pull-left">
+									<label> <input type="checkbox"
+										data-ng-checked="w.pendiente" value="" ng-disabled="true">
+										<i class="input-helper"></i>
+									</label>
+								</div>
+							</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</div>

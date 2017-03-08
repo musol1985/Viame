@@ -1,0 +1,84 @@
+<div class="container">
+
+<div data-ng-controller="usuarios as ctr">
+	<uicard titulo="Profesionales" descripcion="Listado de profesionales" ocultar-action="true">
+		<ul class="actions">
+			<li><a href="" ng-click="refrescar(ctr.tabla)"><i
+					class="zmdi zmdi-refresh-alt"></i></a></li>
+		</ul>
+		<cuerpo>
+			<table ng-table="tabla"
+				ng-table-get-datos="getDatos(params, onComplete)"
+				ng-table-model="rows" ng-Table-Ref="ctr" pagsize="10"
+				class="table table-striped table-vmiddle">
+				<tr ng-repeat="w in rows">
+					<td data-title="'Color'">
+						<div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
+					</td>
+					<td data-title="'Nombre'">{{ w.nombre }}</td>
+					<td data-title="'Correo'">{{ w.correo }}</td>
+					<td data-title="'Admin'">
+						<div class="checkbox pull-left">
+							<label> <input type="checkbox" data-ng-checked="w.admin"
+								value="" readonly> <i class="input-helper"></i>
+							</label>
+						</div>
+					</td>
+					 <td data-title="'Horario'">
+	                      <div class="checkbox pull-left">
+	                       <label>
+	                           <input type="checkbox" data-ng-checked="w.horario!=horarioGen.id" value=""  ng-disabled="true">
+	                           <i class="input-helper"></i>
+	                       </label>
+	                   </div>	             
+	                </td>
+					<td data-title="'Acciones'">
+						<button type="button" class="btn btn-warning" ng-click="modificarHorario(w)"><i class="zmdi zmdi-edit"></i></button>
+						<button type="button" class="btn btn-danger"
+							ng-click="eliminar(w)">
+							<i class="zmdi zmdi-delete"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</cuerpo> 
+	</uicard>
+</div>
+
+
+<div data-ng-controller="tablaUsuarioPendiente as ctr">
+	<uicard titulo="Usuarios por confirmar" descripcion="Lista de usuarios pendientes de confirmar registro" on-action="nuevo()">
+		<ul class="actions">
+			<li><a href="" ng-click="refrescar(ctr.tabla)"><i
+					class="zmdi zmdi-refresh-alt"></i></a></li>
+		</ul>
+		<cuerpo>
+			<table ng-table="tabla"
+				ng-table-get-datos="getDatos(params, onComplete)"
+				ng-table-model="rows" ng-Table-Ref="ctr" pagsize="10"
+				class="table table-striped table-vmiddle">
+				<tr ng-repeat="w in rows">
+					<td data-title="'Color'">
+						<div class="lv-avatar bgm-{{w.color}} pull-left">{{w.nombre.substr(0,1)}}</div>
+					</td>
+					<td data-title="'Nombre'">{{ w.nombre }}</td>
+					<td data-title="'Correo'">{{ w.correo }}</td>
+					<td data-title="'Fecha envio email'">{{ w.fechaEnvio }}</td>
+					<td data-title="'Acciones'">
+						<button type="button" class="btn btn-warning"
+							ng-click="enviarMail(w)">
+							<i class="zmdi zmdi-email"></i>
+						</button>
+						<button type="button" class="btn btn-danger"
+							ng-click="eliminar(w)">
+							<i class="zmdi zmdi-delete"></i>
+						</button>
+					</td>
+				</tr>
+			</table>
+		</cuerpo> 
+	</uicard>
+</div>
+
+
+
