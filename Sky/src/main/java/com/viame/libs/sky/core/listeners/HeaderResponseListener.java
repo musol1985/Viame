@@ -9,12 +9,15 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class HeaderResponseListener extends AResponseListener<Header>{
 	final static Logger log = LogManager.getLogger(HeaderResponseListener.class);
 	
 	private String header;
 	
-	public HeaderResponseListener(String header){
+	public HeaderResponseListener(String header, ObjectMapper mapper){
+		super(mapper);
 		this.header=header;
 	}
 

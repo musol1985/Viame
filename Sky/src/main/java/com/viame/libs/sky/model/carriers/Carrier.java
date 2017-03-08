@@ -25,8 +25,12 @@ public class Carrier implements IModelId{
 	public String getCarrierId() {
 		return id;
 	}
-	@JsonSetter("Carrier")
+	@JsonSetter("CarrierId")
 	public void setCarrierId(String id) {
+		this.id = id;
+	}
+	@JsonSetter("Carrier")
+	public void setCarrier(String id) {
 		this.id = id;
 	}
 	@Override

@@ -5,15 +5,12 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.viame.libs.sky.deserializer.BusquedaDes;
 import com.viame.libs.sky.model.busqueda.Viaje;
 import com.viame.libs.sky.model.busqueda.Vuelo;
 import com.viame.libs.sky.model.carriers.Carrier;
 import com.viame.libs.sky.model.location.Place;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(using = BusquedaDes.class)
 public class Busqueda {
 	public String SessionKey;
 	
@@ -30,11 +27,7 @@ public class Busqueda {
 	@JsonProperty("Segments")
 	private List<Vuelo> vuelos;
 	
-	
-	
-	private static HashMap<String, Carrier> companyiasCache=new HashMap<String, Carrier>();
-	private static HashMap<String, Place> lugaresCache=new HashMap<String, Place>();
-	private static HashMap<String, Vuelo> vuelosCache=new HashMap<String, Vuelo>();
+
 	
 	public String print(){
 		String res="(";
@@ -65,14 +58,6 @@ public class Busqueda {
 		this.lugares = lugares;
 	}
 
-	public static HashMap<String, Carrier> getCompanyiasCache() {
-		return companyiasCache;
-	}
-
-	public static HashMap<String, Place> getLugaresCache() {
-		return lugaresCache;
-	}
-
 	public List<Viaje> getViajes() {
 		return viajes;
 	}
@@ -80,12 +65,6 @@ public class Busqueda {
 	public void setViajes(List<Viaje> viajes) {
 		this.viajes = viajes;
 	}
-
-
-	public static HashMap<String, Vuelo> getVuelosCache() {
-		return vuelosCache;
-	}
-
 
 	public List<Vuelo> getVuelos() {
 		return vuelos;
@@ -96,6 +75,12 @@ public class Busqueda {
 		this.vuelos = vuelos;
 	}
 
-	
+	public String toString(){
+		String res="Busqueda:";
+		for(Viaje v:viajes){
+			res+=v;
+		}
+		return res;
+	}
 	
 }

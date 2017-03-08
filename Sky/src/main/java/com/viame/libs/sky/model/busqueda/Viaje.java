@@ -1,71 +1,80 @@
 package com.viame.libs.sky.model.busqueda;
 
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonSetter;
-import com.viame.libs.sky.model.Busqueda;
 import com.viame.libs.sky.model.IModelId;
 import com.viame.libs.sky.model.location.Place;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Viaje implements IModelId{
+public class Viaje implements IModelId {
 	public String Id;
-	
+
 	private List<Vuelo> vuelos;
-	
+
 	private Place lugarSalida;
 	private Place lugarLlegada;
-	
-	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+	private List<Place> escalas;
+
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	public Date Departure;
-	
-	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
+
+	@JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
 	public Date Arrival;
-	
+
 	public int Duration;
-	
+
 	public String getId() {
 		return Id;
 	}
 
-	@JsonGetter("OriginStation")
-	public Place getOriginStation() {
+	public Place getLugarSalida() {
 		return lugarSalida;
 	}
 
-	@JsonSetter("OriginStation")
-	public void setOriginStationJSON(String originStation) {
-		lugarSalida = Busqueda.getLugaresCache().get(originStation);
+	public void setLugarSalida(Place lugarSalida) {
+		this.lugarSalida = lugarSalida;
 	}
 
-	
-	@JsonGetter("DestinationStation")
-	public Place getDestinationStation() {
+	public Place getLugarLlegada() {
 		return lugarLlegada;
 	}
 
-	@JsonSetter("DestinationStation")
-	public void setDestinationStationJSON(String destination) {
-		lugarLlegada = Busqueda.getLugaresCache().get(destination);
+	public void setLugarLlegada(Place lugarLlegada) {
+		this.lugarLlegada = lugarLlegada;
 	}
 
-	@JsonGetter("SegmentIds")
-	public List<Vuelo> getVuelosJSON() {
+	public String toString() {
+		String res = "Viaje (" + (vuelos.size() - 1) + " escalas):" + "\n";
+		res += "	Desde: " + lugarSalida.getName() + "(" + Departure + ")" + " A: " + lugarLlegada.getName() + "("
+				+ Departure + ") Total=" + Duration + "\n";
+		Iterator<Place> itEscalas=escalas.iterator();
+		for (Vuelo v : vuelos) {
+			res += "		" + v + "\n";
+			if(itEscalas.hasNext()){
+				res+="				"+itEscalas.next()+"\n";
+			}
+		}
+		return res;
+	}
+
+	public List<Vuelo> getVuelos() {
 		return vuelos;
 	}
-	
-	@JsonSetter("SegmentIds")
-	public void setVuelosJSON(List<Integer> vuelos) {
-		this.vuelos=new ArrayList<Vuelo>(vuelos.size());
-		for(Integer i:vuelos){
-			this.vuelos.add(Busqueda.getVuelosCache().get(String.valueOf(i)));
-		}		
+
+	public void setVuelos(List<Vuelo> vuelos) {
+		this.vuelos = vuelos;
 	}
 
-	
+	public List<Place> getEscalas() {
+		return escalas;
+	}
+
+	public void setEscalas(List<Place> escalas) {
+		this.escalas = escalas;
+	}
+
 }

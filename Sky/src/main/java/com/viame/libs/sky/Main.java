@@ -6,6 +6,8 @@ import org.apache.commons.io.IOUtils;
 
 import com.viame.libs.sky.core.SkyHttp;
 import com.viame.libs.sky.model.Busqueda;
+import com.viame.libs.sky.model.Quotes;
+import com.viame.libs.sky.model.quotes.Quote;
 
 public class Main {
 
@@ -31,7 +33,13 @@ public class Main {
 		//sHttp.getVuelo("BCN-sky",  "MAD-sky", "2017-03-09", 1, true);
 		
 		
-		Busqueda b=SkyHttp.convertStringToObject(getFileWithUtil("test.json"), Busqueda.class);
+		/*Busqueda b=SkyHttp.convertStringToObject(getFileWithUtil("test.json"), Busqueda.class);
+		System.out.println(b);*/
+		/*Quotes vuelos=sHttp.getVueloMasBarato("BCN-sky", "MAD-sky", "2017-03-08");
+		for(Quote q:vuelos.getQuotes()){
+			System.out.println(q.print());
+		}*/
+		Busqueda b=sHttp.getVuelo("BCN-sky",  "MAD-sky", "2017-03-09", 1, true);
 		System.out.println(b);
 	}
 

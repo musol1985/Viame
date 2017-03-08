@@ -9,6 +9,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.viame.libs.sky.core.SkyHttp;
 
 public class JSONResponseListener<T> extends AResponseListener<T>{
@@ -16,7 +17,8 @@ public class JSONResponseListener<T> extends AResponseListener<T>{
 	
 	private Class<T> returnType;
 	
-	public JSONResponseListener(Class<T> returnType){
+	public JSONResponseListener(Class<T> returnType, ObjectMapper mapper){
+		super(mapper);
 		this.returnType=returnType;
 	}
 
@@ -29,7 +31,7 @@ public class JSONResponseListener<T> extends AResponseListener<T>{
             	return (T) res;
             }else{
             	log.debug("Response: "+res);
-            	return SkyHttp.convertStringToObject(res, returnType);
+            	return fromJSON(res, returnType);
             }               
         }else{
         	return null;

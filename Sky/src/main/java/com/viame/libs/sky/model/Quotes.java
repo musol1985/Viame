@@ -1,23 +1,20 @@
 package com.viame.libs.sky.model;
 
-import java.util.HashMap;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.viame.libs.sky.deserializer.VuelosDeserializer;
+import com.viame.libs.sky.deserializer.DesQuote;
 import com.viame.libs.sky.model.carriers.Carrier;
+import com.viame.libs.sky.model.location.PlaceExt;
 import com.viame.libs.sky.model.quotes.Quote;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-@JsonDeserialize(using = VuelosDeserializer.class)
-public class Vuelos {
+public class Quotes{
 	private List<Carrier> Carriers;
 	private List<Quote> Quotes;
-	public List<Places> Places;
-	
-	public static HashMap<String, Carrier> carriersCache=new HashMap<String, Carrier>();
-	public static HashMap<String, Places> placesCache;
+	public List<PlaceExt> Places;
+
 	
 	public List<Carrier> getCarriers() {
 		return Carriers;
@@ -31,7 +28,11 @@ public class Vuelos {
 	public void setQuotes(List<Quote> quotes) {
 		Quotes = quotes;
 	}
+	public List<PlaceExt> getPlaces() {
+		return Places;
+	}
+	public void setPlaces(List<PlaceExt> places) {
+		Places = places;
+	}
 
-
-	
 }

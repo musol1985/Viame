@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonGetter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
@@ -20,25 +21,29 @@ public class Vuelo implements IModelId{
 	
 	
 	@JsonProperty("OriginStation")
-	private Place lugarSalida;
+	@JsonIgnore
+	protected Place lugarSalida;
 	@JsonProperty("DestinationStation")
-	private Place lugarLlegada;
+	@JsonIgnore
+	protected Place lugarLlegada;
 	
 	
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
 	@JsonProperty("DepartureDateTime")
-	private Date fechaSalida;
+	protected Date fechaSalida;
 
 	@JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss")
 	@JsonProperty("ArrivalDateTime")
 	private Date fechaLlegada;
 	
 	@JsonProperty("Carrier")
-	private Carrier companyia;
+	@JsonIgnore
+	protected Carrier companyia;
+	
 	@JsonProperty("Duration")
 	private int duracion;
-	@JsonProperty("Duration")
-	private int FlightNumber;
+	@JsonProperty("FlightNumber")
+	private int numeroVuelo;
 	
 	
 	public String getId() {
@@ -83,37 +88,20 @@ public class Vuelo implements IModelId{
 	public void setDuracion(int duracion) {
 		this.duracion = duracion;
 	}
-	public int getFlightNumber() {
-		return FlightNumber;
-	}
-	public void setFlightNumber(int flightNumber) {
-		FlightNumber = flightNumber;
-	}
 
-	@JsonGetter("OriginStation")
-	public Place getLugarSalidaJSON() {
-		return lugarSalida;
+
+	public int getNumeroVuelo() {
+		return numeroVuelo;
 	}
-	@JsonSetter("OriginStation")
-	public void setLugarSalidaJSON(int lugarSalida) {
-		this.lugarSalida = Busqueda.getLugaresCache().get(String.valueOf(lugarSalida));
-	}
-	
-	@JsonGetter("DestinationStation")
-	public Place getLugarLlegadaJSON() {
-		return lugarLlegada;
-	}
-	@JsonSetter("DestinationStation")
-	public void setLugarLlegadaJSON(int lugarLlegada) {
-		this.lugarLlegada = Busqueda.getLugaresCache().get(String.valueOf(lugarLlegada));
+	public void setNumeroVuelo(int numeroVuelo) {
+		this.numeroVuelo = numeroVuelo;
 	}
 	
-	@JsonGetter("Carrier")
-	public Carrier getCompanyiaJSON() {
-		return companyia;
-	}
-	@JsonSetter("Carrier")
-	public void setCompanyiaJSON(int companyia) {
-		this.companyia = Busqueda.getCompanyiasCache().get(String.valueOf(companyia));
+	
+	public String toString(){
+		String res="Vuelo: \n";
+		res+=" 		"+lugarSalida.getName()+"("+fechaSalida+") - "+lugarLlegada.getName()+"("+fechaLlegada+") = "+duracion+"\n";
+		res+="		"+numeroVuelo+" "+companyia.Name;
+		return res;
 	}
 }
