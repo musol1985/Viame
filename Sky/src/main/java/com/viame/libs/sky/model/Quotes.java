@@ -34,5 +34,10 @@ public class Quotes{
 	public void setPlaces(List<PlaceExt> places) {
 		Places = places;
 	}
+	
+	@Override
+	public String toString() {
+		return "Quotes [Carriers=" + Carriers + ", Quotes=" + Quotes + ", Places=" + Places + "]";
+	}
 
 }

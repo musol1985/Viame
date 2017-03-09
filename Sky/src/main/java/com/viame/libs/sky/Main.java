@@ -5,9 +5,7 @@ import java.io.IOException;
 import org.apache.commons.io.IOUtils;
 
 import com.viame.libs.sky.core.SkyHttp;
-import com.viame.libs.sky.model.Busqueda;
-import com.viame.libs.sky.model.Quotes;
-import com.viame.libs.sky.model.quotes.Quote;
+import com.viame.libs.sky.model.location.Place;
 
 public class Main {
 
@@ -38,9 +36,12 @@ public class Main {
 		/*Quotes vuelos=sHttp.getVueloMasBarato("BCN-sky", "MAD-sky", "2017-03-08");
 		for(Quote q:vuelos.getQuotes()){
 			System.out.println(q.print());
-		}*/
+		}
 		Busqueda b=sHttp.getVuelo("BCN-sky",  "MAD-sky", "2017-03-09", 1, true);
-		System.out.println(b);
+		System.out.println(b);*/
+		Place origen=sHttp.getLocation("Barcelona").Places.get(0);
+		Place destino=sHttp.getLocation("Venecia").Places.get(0);
+		System.out.println(sHttp.getVueloMasBarato(origen, destino, "2017-04-01"));
 	}
 
 	
